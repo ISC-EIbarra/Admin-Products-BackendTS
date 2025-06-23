@@ -1,0 +1,17 @@
+{
+  "name": "admin-product_backendts",
+  "version": "1.0.0",
+  "description": "REST API's con Express y TypeScript",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon --exec ts-node src/index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "ISC-EIbarra",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.1.10",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  }
+}
