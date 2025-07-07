@@ -1,6 +1,8 @@
 import request from 'supertest';
 import server from '../../server';
 
+// Integration Testing
+
 describe('POST /api/products', () => {
   it('Should display validation errors', async () => {
     const response = await request(server).post('/api/products').send({});
@@ -164,6 +166,28 @@ describe('PUT /api/products/:id', () => {
 
     expect(response.status).not.toBe(400);
     expect(response.body).not.toHaveProperty('errors');
+  });
+});
+
+describe('PATCH /api/products/:id', () => {
+  it('Should return a 404 response for a non-existing product', async () => {
+    const productId = 3200;
+    const response = await request(server).patch(`/api/products/${productId}`);
+    expect(response.status).toBe(404);
+    expect(response.body.error).toBe('Producto no encontrado');
+    expect(response.status).not.toBe(200);
+    expect(response.body).not.toHaveProperty('data');
+  });
+
+  it('Should update the product availability', async () => {
+    const response = await request(server).patch('/api/products/1');
+    expect(response.status).toBe(200);
+    expect(response.body).toHaveProperty('data');
+    expect(response.body.data.availability).toBe(false);
+
+    expect(response.status).not.toBe(404);
+    expect(response.status).not.toBe(400);
+    expect(response.body).not.toHaveProperty('error');
   });
 });
 
